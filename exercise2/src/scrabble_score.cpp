@@ -1,22 +1,33 @@
-
-
 // scrabble_score.cpp
 #include "../include/scrabble_score.hpp"
 
-int scrabble_score(const std::string& word) {
-    static const int scores[26] = {
-        1, 3, 3, 2, 1, 4, 2, 4, 1, 8,
-        5, 1, 3, 1, 1, 3, 10, 1, 1, 1,
-        1, 4, 4, 8, 4, 10
+int scrabble_score(const std::string& word, const std::string& double_letters, bool triple_word) {
+    static const std::unordered_map<char, int> letter_values = {
+        {'a', 1}, {'e', 1}, {'i', 1}, {'o', 1}, {'u', 1}, {'l', 1}, {'n', 1}, {'r', 1}, {'s', 1}, {'t', 1},
+        {'d', 2}, {'g', 2},
+        {'b', 3}, {'c', 3}, {'m', 3}, {'p', 3},
+        {'f', 4}, {'h', 4}, {'v', 4}, {'w', 4}, {'y', 4},
+        {'k', 5},
+        {'j', 8}, {'x', 8},
+        {'q', 10}, {'z', 10}
     };
 
     int total = 0;
     for (char c : word) {
-        if (c >= 'A' && c <= 'Z') {
-            total += scores[c - 'A'];
-        } else if (c >= 'a' && c <= 'z') {
-            total += scores[c - 'a'];
+        char lower_c = std::tolower(c);
+        if (letter_values.count(lower_c)) {
+            int letter_score = letter_values.at(lower_c);
+            if (double_letters.find(lower_c) != std::string::npos) {
+                letter_score *= 2;
+            }
+            total += letter_score;
         }
     }
+
+    if (triple_word) {
+        total *= 3;
+    }
+
     return total;
 }
+
