@@ -1,29 +1,29 @@
 #include "day-of-year.hpp"
 
-int dayOfYear(int month, int dayOfMonth, int year) {
-    if (month == 2) {
-        dayOfMonth += 31;
-    } else if (month == 3) {
-        dayOfMonth += 59;
-    } else if (month == 4) {
-        dayOfMonth += 90;
-    } else if (month == 5) {
-        dayOfMonth += 31 + 28 + 31 + 30;
-    } else if (month == 6) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31;
-    } else if (month == 7) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30;
-    } else if (month == 8) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31;
-    } else if (month == 9) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31;
-    } else if (month == 10) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30;
-    } else if (month == 11) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31;
-    } else if (month == 12) {
-        dayOfMonth += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 31;
+bool isLeapYear(int year) {
+    if (year % 4 != 0) {
+        return false;
+    } else if (year % 100 != 0) {
+        return true;
+    } else if (year % 400 != 0) {
+        return false;
+    } else {
+        return true;
     }
-    return dayOfMonth;
+}
+
+int dayOfYear(int month, int dayOfMonth, int year) {
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (isLeapYear(year)) {
+        daysInMonth[2] = 29;
+    }
+
+    int dayOfYear = 0;
+    for (int i = 1; i < month; i++) {
+        dayOfYear += daysInMonth[i];
+    }
+    dayOfYear += dayOfMonth;
+
+    return dayOfYear;
 }
 

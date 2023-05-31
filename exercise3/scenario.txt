@@ -1,0 +1,22 @@
+    Scenario:
+    As a player, I can roll the dice to move my game piece around the board.
+    As a player, I can buy unowned property that I land on by paying the bank the price listed on the property's space.
+    As a player, I can collect rent from other players who land on my property.
+    As a player, I can be sent to jail if I land on the "Go to Jail" space, roll doubles three times in a row, or draw a "Go to Jail" card from the Chance or Community Chest.
+
+    4 acceptance tests:
+        GIVEN a player's turn,
+        WHEN the player rolls the dice,
+        THEN their game piece should move forward the number of spaces that matches the sum of the dice.
+
+        GIVEN a player who lands on an unowned property,
+        WHEN they choose to buy the property,
+        THEN the player should pay the bank the price of the property and receive the property title deed card.
+
+        GIVEN a player who owns a property,
+        WHEN another player lands on their property,
+        THEN the owner should collect rent from that player, with the amount determined by the property's rent value.
+
+        GIVEN a player who lands on the "Go to Jail" space, rolls doubles three times in a row, or draws a "Go to Jail" card,
+        WHEN these events occur,
+        THEN the player should move their game piece directly to the Jail space and their turn ends.
